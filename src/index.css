@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+:root {
+  --carrot: #FF6600;
+  --carrot-soft: #FF9364;
+  --carrot-glow: rgba(255, 102, 0, 0.45);
+
+  --bg-void: #0a0a0f;
+  --bg-deep: #12121a;
+  --bg-panel: #1a1a24;
+  --bg-panel-raised: #22222e;
+  --border-faint: #33333f;
+  --border-glow: rgba(255, 147, 100, 0.3);
+
+  --text-primary: #f2f0ec;
+  --text-secondary: #b8b5ae;
+  --text-tertiary: #7a7873;
+
+  --crack-red: #e8455c;
+  --good-glow: rgba(255, 220, 180, 0.55);
+
+  --font-body: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--carrot-glow);
+}
