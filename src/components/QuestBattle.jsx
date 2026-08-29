@@ -194,6 +194,9 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
               </button>
             )
           })}
+          <button type="button" className="btn-ghost back-row" onClick={() => setPhase('encounter')}>
+            ◀ 뒤로
+          </button>
         </div>
       )}
 

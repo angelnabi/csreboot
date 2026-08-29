@@ -686,6 +686,13 @@
   gap: 10px;
 }
 
+.back-row {
+  align-self: center;
+  padding: 8px 20px;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
 .choice-card {
   background: var(--bg-panel);
   border: 1.5px solid var(--border-faint);
