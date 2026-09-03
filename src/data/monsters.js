@@ -38,7 +38,7 @@ export const QUESTS = [
     origin: '초조(焦燥)',
     entryText: '뚜벅... 뚜벅... 발소리가 축축한 바닥에 부딪혀 울린다.\n동굴 안쪽 통로, 공기가 점점 무거워진다.\n저 멀리서 규칙적으로 톡, 톡, 톡— 무언가 두드리는 소리가 들려온다.',
     // % position on scene_overworld_map.png the walker travels between as the corridor progresses
-    mapPath: { from: [12, 85], to: [28, 62] },
+    mapPath: { from: [6, 64], to: [28, 45] },
     sideDiscoveries: [
       '바닥에 손톱으로 그은 듯한 짧은 선들이 줄지어 있다. 하루를 세던 흔적 같다.',
       '멈춰버린 낡은 시계가 벽에 걸려 있다. 오래전에 시간이 멈춘 듯하다.',
@@ -99,7 +99,7 @@ export const QUESTS = [
     poses: { idle: q2Idle, attack: q2Attack, defeat: q2Defeat },
     origin: '메아리(반복 되울림)',
     entryText: '조금 더 걸어 들어가자, 통로가 점점 좁아진다.\n발끝에 차가운 물웅덩이가 밟힌다.\n그리고, 벽에 부딪혀 되돌아오는 목소리가 들린다 — 같은 말이 자꾸만 반복된다.',
-    mapPath: { from: [28, 62], to: [46, 45] },
+    mapPath: { from: [28, 45], to: [43, 40] },
     sideDiscoveries: [
       '벽에 귀를 대보니, 아주 희미하게 같은 말이 계속 맴돈다.',
       '누군가 새겨놓은 글씨 — "내 말 좀 들어줘" — 여러 번 덧새겨져 있다.',
@@ -162,7 +162,7 @@ export const QUESTS = [
     poses: { idle: q3Idle, attack: q3Attack, defeat: q3Defeat },
     origin: '굴레(속박, 제자리 맴돌기)',
     entryText: '통로가 아래로 이어진다. 어딘가에서 쇠사슬이 끌리는 소리가 들린다.\n한 걸음씩 내디딜 때마다, 소리는 점점 가까워진다.\n곧, 사슬로 스스로를 옭아맨 무언가가 제자리를 맴도는 모습이 보인다.',
-    mapPath: { from: [46, 45], to: [64, 32] },
+    mapPath: { from: [43, 40], to: [63, 20] },
     sideDiscoveries: [
       '여러 겹으로 겹쳐 쓰인 이름들이 보인다. 다들 이 일에서 발을 뺀 듯하다.',
       '사슬 끝에 작은 팻말이 매달려 있다 — "내 담당 아님"',
@@ -233,7 +233,7 @@ export const BOSS = {
   poses: { idle: bossIdle, attack: bossAttack, defeat: bossDefeat },
   origin: '잔향(殘響, 사라지지 않는 울림)',
   entryText: '가장 깊은 곳. 공기마저 멈춘 듯 고요하다.\n여러 겹의 흐릿한 형체가 겹쳐 보인다 — 앞서 만난 셋의 잔상이 그 위로 스친다.',
-  mapPath: { from: [64, 32], to: [83, 18] },
+  mapPath: { from: [63, 20], to: [85, 15] },
   sideDiscoveries: [
     '여러 목소리가 겹쳐 들리다가, 한 목소리로 잦아든다.',
     '바닥에 흩어진 발자국들이 모두 같은 곳에서 시작된 것 같다.',
