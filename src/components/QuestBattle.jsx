@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { STAGE_LABELS, CARD_LABELS } from '../data/characters'
+import { STAGE_LABELS, CARD_LABELS, getGoodLine } from '../data/characters'
 import { scoreChoice, scoreTrapChoice, gaugeToPercent } from '../game/battleEngine'
 import { shuffle } from '../game/shuffle'
 import CorridorStep from './CorridorStep'
@@ -44,7 +44,7 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
       return { label, line, reactionPreview }
     }
     const label = CARD_LABELS[stageIndex][type]
-    const line = type === 'good' ? character.strengthBank[stageIndex] : stageData[type]
+    const line = type === 'good' ? getGoodLine(character, stageIndex, monster.id) : stageData[type]
     const reactionPreview =
       type === 'good' ? stageData.reactionGood : type === 'normal' ? stageData.reactionNormal : stageData.reactionBad
     return { label, line, reactionPreview }
