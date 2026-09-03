@@ -7,6 +7,7 @@ import QuestBattle from './components/QuestBattle'
 import EndingScreen from './components/EndingScreen'
 import ReflectionScreen from './components/ReflectionScreen'
 import JourneyMap from './components/JourneyMap'
+import MapRevealScreen from './components/MapRevealScreen'
 import { QUESTS, BOSS } from './data/monsters'
 
 const ENCOUNTERS = [...QUESTS, BOSS]
@@ -71,10 +72,12 @@ function App() {
             <CharacterSelect
               onConfirm={(c) => {
                 setCharacter(c)
-                setStep('tutorial')
+                setStep('map')
               }}
             />
           )}
+
+          {step === 'map' && <MapRevealScreen onStart={() => setStep('tutorial')} />}
 
           {step === 'tutorial' && (
             <TutorialBattle character={character} onComplete={() => setStep('battle')} />
@@ -93,15 +96,22 @@ function App() {
           {step === 'ending' && (
             <EndingScreen
               results={results}
+              character={character}
+              boss={BOSS}
               onRetry={handleRetry}
               onReflect={() => setStep('reflection')}
             />
           )}
 
-          {step === 'reflection' && <ReflectionScreen onFinish={() => setStep('closing')} />}
+          {step === 'reflection' && (
+            <ReflectionScreen character={character} onFinish={() => setStep('closing')} />
+          )}
 
           {step === 'closing' && (
             <div className="screen title-screen">
+              <div className="closing-portrait idle-float">
+                <img src={character.poses.good} alt={character.name} />
+              </div>
               <h1 className="title-name">여정을 마쳤습니다</h1>
               <p className="title-lore">
                 이제 오프라인에서, 오늘 어떤 선택이 가장 고민됐는지 함께 이야기 나눠볼까요?

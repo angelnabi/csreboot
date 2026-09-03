@@ -83,7 +83,7 @@ export const CHARACTERS = [
     previewLine: '같은 말도, 마음을 담고 표현하기에 달렸어.',
     stats: { perspective: 2, empathy: 3, solution: 3, tone: 5 },
     strengthBank: [
-      '듣는 것부터, 나답게 해볼게',
+      '잘 듣는 건 자신 없지만... 그래도 한번 들어볼게',
       '공감이 서툴러도... 진심은 전할 수 있어',
       '해결까진 어렵지만, 방향은 보여',
       '이 말이, 어떻게 가 닿을지 알아',

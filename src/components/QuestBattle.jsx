@@ -25,7 +25,7 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
   }, [stageIndex, monster])
 
   const advanceAfterEntry = () => {
-    setPhase(monster.easterEgg ? 'easterEgg' : 'encounter')
+    setPhase('encounter')
   }
 
   const applyOutcome = ({ gain, crackDelta, crackRemoved, counterTriggered }, label, line, reactionText, type) => {
@@ -80,11 +80,15 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
   const percentNow = gaugeToPercent(rawGauge)
 
   if (phase === 'entry') {
-    return <CorridorStep text={monster.entryText} character={character} onDone={advanceAfterEntry} />
-  }
-
-  if (phase === 'easterEgg') {
-    return <EasterEggStep egg={monster.easterEgg} onDone={() => setPhase('encounter')} />
+    return (
+      <CorridorStep
+        text={monster.entryText}
+        character={character}
+        sideDiscoveries={monster.sideDiscoveries}
+        easterEgg={monster.easterEgg}
+        onDone={advanceAfterEntry}
+      />
+    )
   }
 
   if (phase === 'encounter') {
@@ -215,37 +219,6 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
             </button>
           </div>
         </>
-      )}
-    </div>
-  )
-}
-
-function EasterEggStep({ egg, onDone }) {
-  const [result, setResult] = useState(null)
-
-  return (
-    <div className="screen">
-      <div className="easter-egg-box">
-        <div>{egg.prompt}</div>
-        {!result && (
-          <div className="easter-egg-actions">
-            <button type="button" className="btn-ghost" onClick={() => setResult(egg.openResult)}>
-              {egg.openLabel}
-            </button>
-            <button type="button" className="btn-ghost" onClick={onDone}>
-              {egg.skipLabel}
-            </button>
-          </div>
-        )}
-        {result && <div>{result}</div>}
-        {result && egg.hint && <div className="easter-egg-hint">{egg.hint}</div>}
-      </div>
-      {result && (
-        <div className="continue-row">
-          <button type="button" className="btn-primary" onClick={onDone}>
-            계속
-          </button>
-        </div>
       )}
     </div>
   )

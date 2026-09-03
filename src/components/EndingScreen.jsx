@@ -1,7 +1,8 @@
 import { ENDING_SCENE, TRUE_ENDING, INCOMPLETE_ENDING } from '../data/monsters'
 import { isSuccess } from '../game/battleEngine'
+import endingLight from '../assets/game/scene_ending_light.png'
 
-export default function EndingScreen({ results, onRetry, onReflect }) {
+export default function EndingScreen({ results, character, boss, onRetry, onReflect }) {
   const scores = Object.values(results)
   const average = scores.reduce((a, b) => a + b, 0) / scores.length
   const success = isSuccess(average)
@@ -9,6 +10,20 @@ export default function EndingScreen({ results, onRetry, onReflect }) {
 
   return (
     <div className="screen">
+      {success ? (
+        <div className="map-reveal-frame">
+          <img src={endingLight} alt="빛으로 향하는 길" className="map-reveal-img" />
+        </div>
+      ) : (
+        <div className="ending-arena">
+          <div className="portrait-wrap idle-float">
+            <img src={character.poses.good} alt={character.name} />
+          </div>
+          <div className="portrait-wrap idle-float ending-dim">
+            <img src={boss.poses.defeat} alt={boss.name} />
+          </div>
+        </div>
+      )}
       <div className="ending-scene-text">{ENDING_SCENE}</div>
       <div className={`ending-badge ${success ? 'true' : 'incomplete'}`}>{ending.label}</div>
       <div className="story-box">{ending.text}</div>
