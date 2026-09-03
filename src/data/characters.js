@@ -64,7 +64,7 @@ export const CHARACTERS = [
     previewLine: '아무리 엉켜 있어도, 시작점은 반드시 있어.',
     stats: { perspective: 3, empathy: 2, solution: 5, tone: 3 },
     strengthBank: [
-      '일단 무슨 상황인지부터 파악해볼게',
+      '관점 읽는 건 잘 못 하지만... 일단 들어볼게',
       '위로하는 건 어렵지만... 마음은 알겠어',
       '여기가 시작점이야, 이렇게 풀면 돼',
       '매끄럽진 않아도, 방법은 확실해',
