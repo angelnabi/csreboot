@@ -85,7 +85,9 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
         text={monster.entryText}
         character={character}
         sideDiscoveries={monster.sideDiscoveries}
+        deadEndLines={monster.deadEndLines}
         easterEgg={monster.easterEgg}
+        mapPath={monster.mapPath}
         onDone={advanceAfterEntry}
       />
     )

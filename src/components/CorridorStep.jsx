@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import CaveBackdrop from './CaveBackdrop'
 import CorridorMiniMap from './CorridorMiniMap'
 import TypewriterText from './TypewriterText'
 import { shuffle } from '../game/shuffle'
+import overworldMap from '../assets/game/scene_overworld_map.png'
 
 // The path isn't just a straight line — it winds. Each entry is the direction
 // needed to move from beat i to beat i+1.
@@ -29,11 +29,22 @@ const DIR_HINT = {
 // flavor "discoveries" on the next few, then generic dead-end lines after that.
 // Players who only ever press the right direction never see any of it — the
 // egg only appears if you actually wander off the path.
-export default function CorridorStep({ text, character, sideDiscoveries, easterEgg, onDone }) {
+export default function CorridorStep({
+  text,
+  character,
+  sideDiscoveries,
+  deadEndLines,
+  easterEgg,
+  mapPath,
+  onDone,
+}) {
   const beats = text.split('\n').filter(Boolean)
   const dirs = beats.slice(0, -1).map((_, i) => TURN_PATTERN[i % TURN_PATTERN.length])
   const [beatIndex, setBeatIndex] = useState(0)
-  const [stepKey, setStepKey] = useState(0)
+
+  const progress = beats.length > 1 ? beatIndex / (beats.length - 1) : 1
+  const walkerX = mapPath ? mapPath.from[0] + (mapPath.to[0] - mapPath.from[0]) * progress : 50
+  const walkerY = mapPath ? mapPath.from[1] + (mapPath.to[1] - mapPath.from[1]) * progress : 50
 
   const [sideMessage, setSideMessage] = useState(null)
   const [isDiscovery, setIsDiscovery] = useState(false)
@@ -42,7 +53,13 @@ export default function CorridorStep({ text, character, sideDiscoveries, easterE
 
   const [discoveryQueue] = useState(() => shuffle(sideDiscoveries || []))
   const [discoveryIndex, setDiscoveryIndex] = useState(0)
-  const [lastWrongIndex, setLastWrongIndex] = useState(-1)
+
+  // Dead-end flavor is a shuffled deck (quest-specific lines + generic ones),
+  // dealt one at a time; the whole deck is reshuffled only once it's used up,
+  // so nothing repeats until every line has been seen.
+  const wrongPool = [...(deadEndLines || []), ...WRONG_WAY]
+  const [wrongDeck, setWrongDeck] = useState(() => shuffle(wrongPool))
+  const [wrongCursor, setWrongCursor] = useState(0)
 
   const isLast = beatIndex === beats.length - 1
   const requiredDir = isLast ? 'up' : dirs[beatIndex]
@@ -67,21 +84,18 @@ export default function CorridorStep({ text, character, sideDiscoveries, easterE
         setIsDiscovery(true)
         setDiscoveryIndex((i) => i + 1)
       } else {
-        let next = Math.floor(Math.random() * WRONG_WAY.length)
-        if (WRONG_WAY.length > 1) {
-          while (next === lastWrongIndex) {
-            next = Math.floor(Math.random() * WRONG_WAY.length)
-          }
-        }
-        setLastWrongIndex(next)
+        const atEnd = wrongCursor >= wrongDeck.length
+        const deck = atEnd ? shuffle(wrongPool) : wrongDeck
+        const cursor = atEnd ? 0 : wrongCursor
+        if (atEnd) setWrongDeck(deck)
+        setWrongCursor(cursor + 1)
         setEggPhase(null)
-        setSideMessage(WRONG_WAY[next])
+        setSideMessage(deck[cursor])
         setIsDiscovery(false)
       }
       return
     }
     clearSide()
-    setStepKey((k) => k + 1)
     if (beatIndex < beats.length - 1) {
       setBeatIndex((i) => i + 1)
     } else {
@@ -91,15 +105,14 @@ export default function CorridorStep({ text, character, sideDiscoveries, easterE
 
   const handleBack = () => {
     clearSide()
-    setStepKey((k) => k + 1)
     setBeatIndex((i) => Math.max(0, i - 1))
   }
 
   return (
     <div className="screen">
       <div className="cave-scene">
-        <CaveBackdrop />
-        <div className="cave-walker" key={stepKey}>
+        <img src={overworldMap} alt="동굴 지도" className="cave-scene-map" />
+        <div className="cave-walker" style={{ left: `${walkerX}%`, top: `${walkerY}%` }}>
           <img src={character.poses.back} alt={character.name} />
         </div>
       </div>
