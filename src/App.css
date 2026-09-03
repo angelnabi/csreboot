@@ -827,11 +827,11 @@
   filter: grayscale(0.6) brightness(0.6);
 }
 
-.closing-portrait,
 .reflection-portrait {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto;
+  width: 140px;
+  height: 140px;
+  margin: 4px auto 0;
+  filter: drop-shadow(0 0 30px var(--carrot-glow));
 }
 
 .ending-scene-text {

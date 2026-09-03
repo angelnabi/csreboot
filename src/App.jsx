@@ -9,6 +9,7 @@ import ReflectionScreen from './components/ReflectionScreen'
 import JourneyMap from './components/JourneyMap'
 import MapRevealScreen from './components/MapRevealScreen'
 import { QUESTS, BOSS } from './data/monsters'
+import gatheringCircle from './assets/game/scene_gathering_circle.png'
 
 const ENCOUNTERS = [...QUESTS, BOSS]
 const JOURNEY_ORDER = ['tutorial', ...ENCOUNTERS.map((e) => e.id)]
@@ -104,13 +105,13 @@ function App() {
           )}
 
           {step === 'reflection' && (
-            <ReflectionScreen character={character} onFinish={() => setStep('closing')} />
+            <ReflectionScreen boss={BOSS} onFinish={() => setStep('closing')} />
           )}
 
           {step === 'closing' && (
             <div className="screen title-screen">
-              <div className="closing-portrait idle-float">
-                <img src={character.poses.good} alt={character.name} />
+              <div className="map-reveal-frame">
+                <img src={gatheringCircle} alt="함께한 여정" className="map-reveal-img" />
               </div>
               <h1 className="title-name">여정을 마쳤습니다</h1>
               <p className="title-lore">
