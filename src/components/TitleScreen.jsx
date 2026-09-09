@@ -4,6 +4,7 @@ export default function TitleScreen({ onStart }) {
       <div>
         <div className="title-mark">CS Reboot · Season 1 · Session 4</div>
         <h1 className="title-name">잔향의 동굴</h1>
+        <div className="title-gloss">잔향(殘響) · 사라지지 않고 남아 울리는 소리</div>
       </div>
       <p className="title-lore">
         OO동굴에서 사람들이 자꾸 사라지고, 발견돼도 다친 채로 돌아온다는 소문이 돈다.
