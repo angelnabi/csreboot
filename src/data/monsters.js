@@ -90,7 +90,11 @@ export const QUESTS = [
         reactionBad: '흐려지며 사라진다',
       },
     ],
-    completionText: '...고마워',
+    completionText: {
+      high: '...고마워',
+      mid: '...그래도, 이제 좀 나아진 것 같아',
+      low: '...역시, 아무도 진짜 신경 안 쓰는구나',
+    },
   },
   {
     id: 'q2',
@@ -153,7 +157,11 @@ export const QUESTS = [
         reactionBad: '흐려지며 사라진다',
       },
     ],
-    completionText: '...고마워, 이제 알겠어',
+    completionText: {
+      high: '...고마워, 이제 알겠어',
+      mid: '...그런 것 같기도 하고... 잘 모르겠어',
+      low: '...왜... 왜...',
+    },
   },
   {
     id: 'q3',
@@ -222,9 +230,24 @@ export const QUESTS = [
         reactionBad: '흐려지며 사라진다',
       },
     ],
-    completionText: '...고마워, 이제 그만 맴돌아도 되겠다',
+    completionText: {
+      high: '...고마워, 이제 그만 맴돌아도 되겠다',
+      mid: '...그래도 조금은, 덜 맴도는 것 같아',
+      low: '...또 그렇게 떠넘기고 가는구나',
+    },
   },
 ]
+
+// Picks the completion line matching how well that quest went, so a low
+// score doesn't get the same warm thank-you as a strong one. Mirrors the
+// isSuccess(70) threshold used for the overall ending, plus a middle band.
+export function getCompletionText(monster, percent) {
+  const text = monster.completionText
+  if (!text) return null
+  if (percent >= 70) return text.high
+  if (percent >= 40) return text.mid
+  return text.low
+}
 
 export const BOSS = {
   id: 'boss',

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { STAGE_LABELS, CARD_LABELS, getGoodLine } from '../data/characters'
+import { getCompletionText } from '../data/monsters'
 import { scoreChoice, scoreTrapChoice, gaugeToPercent } from '../game/battleEngine'
 import { shuffle } from '../game/shuffle'
 import CorridorStep from './CorridorStep'
@@ -141,7 +142,9 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
           <div className="gauge-fill" style={{ width: `${percentNow}%` }} />
         </div>
         <div className="ending-score">마음의 문 {percentNow} / 100</div>
-        {monster.completionText && <div className="story-box">{monster.completionText}</div>}
+        {getCompletionText(monster, percentNow) && (
+          <div className="story-box">{getCompletionText(monster, percentNow)}</div>
+        )}
         <button type="button" className="btn-primary" onClick={finish}>
           계속
         </button>
