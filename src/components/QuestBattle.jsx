@@ -211,9 +211,10 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
                 className={`choice-card${isSolverHint ? ' hint-good' : ''}`}
                 onClick={() => handleChoose(type)}
               >
-                {/* Trap-stage actions (e.g. "베기") have no real spoken line, so they
-                    still need their action name shown up front. */}
-                {isTrapStage && <span className="card-label">{label}</span>}
+                {/* Only the "bad" trap action has no real spoken line ("..."), so only
+                    it needs its action name shown up front — labeling the other two
+                    (e.g. "경청 공격") would give away the trap before the line is read. */}
+                {isTrapStage && line === '...' && <span className="card-label">{label}</span>}
                 <span className="card-line">"{line}"</span>
                 {showMageInsight && reactionPreview && (
                   <span className="card-preview">예상 반응: {reactionPreview}</span>
