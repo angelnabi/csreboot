@@ -13,6 +13,9 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
   const [crackStacks, setCrackStacks] = useState(0)
   const [reveal, setReveal] = useState(null) // { label, line, reactionText, type }
   const [shakeKey, setShakeKey] = useState(0)
+  // One entry per completed stage, so "뒤로" can undo the most recent stage's
+  // effect on the gauge/cracks instead of just resetting the visible phase.
+  const [history, setHistory] = useState([])
 
   const isTrapStage = monster.trap && monster.trap.stageIndex === stageIndex
   const stageData = monster.stages[stageIndex]
@@ -33,6 +36,21 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
     setCrackStacks((c) => Math.max(0, c - crackRemoved + crackDelta))
     setReveal({ label, line, reactionText, type, counterTriggered })
     setShakeKey((k) => k + 1)
+    setHistory((h) => [...h, { gain, crackDelta, crackRemoved }])
+  }
+
+  const handleBack = () => {
+    if (stageIndex === 0) {
+      setPhase('encounter')
+      return
+    }
+    const last = history[history.length - 1]
+    if (last) {
+      setRawGauge((g) => g - last.gain)
+      setCrackStacks((c) => Math.max(0, c + last.crackRemoved - last.crackDelta))
+      setHistory((h) => h.slice(0, -1))
+    }
+    setStageIndex((i) => Math.max(0, i - 1))
   }
 
   const cardMeta = (type) => {
@@ -200,7 +218,7 @@ export default function QuestBattle({ monster, character, isRetry, onComplete })
               </button>
             )
           })}
-          <button type="button" className="btn-ghost back-row" onClick={() => setPhase('encounter')}>
+          <button type="button" className="btn-ghost back-row" onClick={handleBack}>
             ◀ 뒤로
           </button>
         </div>

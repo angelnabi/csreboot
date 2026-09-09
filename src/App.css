@@ -1,5 +1,6 @@
 .app-shell {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -202,9 +203,11 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px var(--carrot-glow);
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 32px var(--carrot-glow);
+  }
 }
 
 .btn-ghost {
@@ -217,9 +220,11 @@
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 
-.btn-ghost:hover {
-  border-color: var(--carrot-soft);
-  color: var(--text-primary);
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover {
+    border-color: var(--carrot-soft);
+    color: var(--text-primary);
+  }
 }
 
 /* ---------- Character Select ---------- */
@@ -249,8 +254,10 @@
   transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.char-card:hover {
-  transform: translateY(-3px);
+@media (hover: hover) and (pointer: fine) {
+  .char-card:hover {
+    transform: translateY(-3px);
+  }
 }
 
 .char-card.selected {
@@ -625,9 +632,11 @@
   transition: border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
 }
 
-.dpad-btn:hover:not(:disabled) {
-  border-color: var(--carrot-soft);
-  transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+  .dpad-btn:hover:not(:disabled) {
+    border-color: var(--carrot-soft);
+    transform: translateY(-1px);
+  }
 }
 
 .dpad-btn:active:not(:disabled) {
@@ -756,9 +765,11 @@
   transition: border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
 }
 
-.choice-card:hover:not(:disabled) {
-  border-color: var(--carrot-soft);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .choice-card:hover:not(:disabled) {
+    border-color: var(--carrot-soft);
+    transform: translateY(-2px);
+  }
 }
 
 .choice-card:disabled {
@@ -912,4 +923,116 @@
 .reflection-textarea:focus {
   outline: none;
   border-color: var(--carrot-soft);
+}
+
+/* ---------- Mobile: real phone, not a phone-shaped card ----------
+   Kept at the end of the file (rather than beside the rules it overrides)
+   so it wins the cascade on equal specificity — media-query scoping alone
+   doesn't out-rank source order. */
+@media (max-width: 600px) {
+  .app-shell {
+    padding: 0;
+  }
+
+  .game-frame {
+    max-width: 100%;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 16px 16px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .game-frame-notch {
+    display: none;
+  }
+
+  .game-frame-inner {
+    max-height: none;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /* Screens with little content (e.g. the tutorial battle) were left stranded
+     near the top with a dead gap below on a full-height mobile frame — grow
+     to fill the frame and center instead. */
+  .game-frame-inner > .screen {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Character/monster art has a lot of built-in transparent padding, so at
+     the old box size it read as small and left the frame looking sparse —
+     size the boxes up so the art reads at a consistent, larger scale. */
+  .portrait-wrap,
+  .monster-portrait-wrap {
+    width: 180px;
+    height: 180px;
+  }
+
+  .arena-side .portrait-wrap {
+    width: 145px;
+    height: 145px;
+  }
+
+  .char-card img {
+    width: 92px;
+    height: 92px;
+  }
+
+  .ending-arena .portrait-wrap {
+    width: 130px;
+    height: 130px;
+  }
+
+  .reflection-portrait {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Several UI labels were sized for a desktop "phone mockup" card and read
+     too small on an actual device screen — bump the smallest ones up. */
+  .story-box,
+  .log-box,
+  .ending-scene-text {
+    font-size: 15px;
+  }
+
+  .journey-label {
+    font-size: 10px;
+    max-width: 46px;
+  }
+
+  .journey-node {
+    font-size: 11px;
+  }
+
+  .card-label,
+  .hint-marker,
+  .discovery-tag,
+  .easter-egg-hint {
+    font-size: 11px;
+  }
+
+  .gauge-label,
+  .crack-indicator,
+  .stat-bar-row,
+  .corridor-hint,
+  .reflection-note,
+  .char-subtitle,
+  .arena-vs,
+  .choice-card .card-preview {
+    font-size: 12px;
+  }
+
+  .ending-score,
+  .arena-name {
+    font-size: 13px;
+  }
 }
